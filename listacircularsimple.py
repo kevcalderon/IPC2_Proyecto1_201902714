@@ -1,6 +1,6 @@
 class Nodo:
-    def __init__(self, dato):
-        self.dato = dato
+    def __init__(self, numero):
+        self.numero = numero
         self.siguiente = None
 
 
@@ -46,14 +46,14 @@ class ListaCircular:
 
 
 
-lista = ListaCircular()
-lista.agregarFinal(10)
-lista.agregarFinal(35)
-lista.agregarFinal(20)
-lista.agregarFinal(7)
+# lista = ListaCircular()
+# lista.agregarFinal(10)
+# lista.agregarFinal(35)
+# lista.agregarFinal(20)
+# lista.agregarFinal(7)
 
-lista.agregarInicio(1)
+# lista.agregarInicio(1)
 
-lista.agregarFinal(100)
+# lista.agregarFinal(100)
 
-lista.recorrer()
+# lista.recorrer()
