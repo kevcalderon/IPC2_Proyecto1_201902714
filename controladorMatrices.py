@@ -1,6 +1,6 @@
 from xml.dom import minidom
 import xml.etree.cElementTree as ET
-
+from graphviz import Digraph
 from listacircularsimple import ListaCircular
 from listasimple import ListaSimpleEnlazada 
 
@@ -12,8 +12,10 @@ class Matriz:
         self.datos = datos
         
 
-listaMatriz  = ListaCircular()
-listaGeneral = ListaSimpleEnlazada()
+# listaMatriz  = ListaSimpleEnlazada()
+listaGeneral = ListaCircular()
+# listaDatosGeneral = ListaSimpleEnlazada()
+
 
 def getText(nodeList):
     rc = []
@@ -21,6 +23,7 @@ def getText(nodeList):
         if node.nodeType == node.TEXT_NODE:
             rc.append(node.data)
     return "".join(rc)
+    
 
 
 def validacionDatos(posicionX,posicionY,n,m):
@@ -34,7 +37,7 @@ def cargarArchivo():
     nombre = input("Escribe la ruta del archivo: ")
     archivo = minidom.parse(nombre)
     matriz = archivo.getElementsByTagName("matriz")
-    contador = 0
+    listaTemp = ListaSimpleEnlazada()
     
 
     for i in matriz:        
@@ -45,14 +48,18 @@ def cargarArchivo():
         m = int(i.getAttribute('m'))
         #accede a la etiqueta hija de la matriz
         dato = i.getElementsByTagName("dato")
+        # crea la lista enlazada por cada matriz
+        listaTemp = ListaSimpleEnlazada()
         tamanio = n*m
         contador = 0
+        i = 0
+        
         ingresada = True
 
-        print("nombre: ", nombre)
-        print("tamanioN: ", n)
-        print("tamanioM: ", m)
-        print("")
+        # print("nombre: ", nombre)
+        # print("tamanioN: ", n)
+        # print("tamanioM: ", m)
+        # print("")
         
         #conteo de datos que hay en la matriz
         for x in dato:
@@ -63,8 +70,9 @@ def cargarArchivo():
                 
                 posicionX = int(posicion.getAttribute('x'))
                 posicionY = int(posicion.getAttribute('y'))
-                valor = int(getText(posicion.childNodes))
-                #valor = dato[contador-1].childNodes[0].data
+
+                valor = int(getText(posicion.childNodes))   
+                # valor = dato[i-1].childNodes[0].data
      
                 if validacionDatos(posicionX, posicionY, n, m) == False:
                     print("La posición en X o Y son mayores al tamaño de la matriz.")
@@ -73,18 +81,21 @@ def cargarArchivo():
                     break
                 else:
                     #agregar posiciones a lista
-                    print("posicionX: ", posicionX)
-                    print("posicionY: ", posicionY)
-                    print("dato: ", valor)
-                    listaMatriz.agregarFinal(valor)
-                    print("*********")
-                    contador = 0
-                    tamanio = 0
+                    # print("posicionX: ", posicionX)
+                    # print("posicionY: ", posicionY)
+                    # print("dato: ", valor)
+                    # for x in dato[0,4]
+                    listaTemp.agregarUltimo(valor)
                     
-                
+                    # listaDatosGeneral.agregarUltimo(valor)
+                    
+                    
+                    # print("*********")
+   
             if ingresada == True:
-                matriz = Matriz(nombre, n, m, listaMatriz)
-                listaGeneral.agregarUltimo(matriz)
+                matriz = Matriz(nombre, n, m, listaTemp)
+                listaGeneral.agregarFinal(matriz)
+
                 print("Matriz ingresada correctamente :D")
                 print("")
                 print("-----------------") 
@@ -105,8 +116,29 @@ def cargarArchivo():
             print("")
             nombre = None
             tamanio = 0
-               
-    listaGeneral.recorrido()
+
+        # while listaTemp.isVacia() == False: 
+        #     listaTemp.pop()  
+
+
+    # listaGeneral.recorrido()
+    # acceder al nodo, con propiedades
+    prueba1 = listaGeneral.buscar("Ejemplo1")
+    # # prueba1.datos.__str__()
+
+    # # listaGeneral.getSize()
+    print(prueba1.nombre)
+    prueba1.datos.recorrido()
+    # listaGeneral.recorrido()
+    
+    # listaGeneral.buscar("Ejemplo2")
+    # listaGeneral.buscar("Ejemplo4")
+
+    # print(listaMatriz.__str__())
+   
+    
+    # listaGeneral.getSize()
+    # listaGeneral.buscar(0).nombre
 
 
 def procesarArchivo():
@@ -117,4 +149,6 @@ def archivoSalida():
     pass
 
 def generarGrafica():
-    pass
+
+    dot = Digraph(name='dibujo', encoding='UTF-8', format='pdf')
+    dot.attr(rankdir='LR', layout='dot', shape='circle')

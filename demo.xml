@@ -22,13 +22,6 @@
         <dato x="1" y="2">5</dato>
         <dato x="2" y="1">20</dato>
         <dato x="2" y="2">10</dato>
-        <dato x="3" y="1">15</dato>
-        <dato x="3" y="2">5</dato>
-        <dato x="3" y="1">15</dato>
-        <dato x="3" y="2">5</dato>
-        <dato x="3" y="1">15</dato>
-        <dato x="3" y="2">5</dato>
-        
     </matriz>
         <matriz nombre="Ejemplo3" n="3" m="3">
         <dato x="1" y="1">0</dato>
@@ -36,21 +29,21 @@
         <dato x="1" y="3">20</dato>
     </matriz>
     <matriz nombre="Ejemplo4" n="4" m="4">
-        <dato x="1" y="1">1</dato>
-        <dato x="1" y="2">2</dato>
+        <dato x="1" y="1">7</dato>
+        <dato x="1" y="2">3</dato>
         <dato x="1" y="3">3</dato>
         <dato x="1" y="4">0</dato>
         <dato x="2" y="1">0</dato>
         <dato x="2" y="2">0</dato>
         <dato x="2" y="3">0</dato>
-        <dato x="2" y="4">5</dato>
-        <dato x="3" y="1">5</dato>
-        <dato x="3" y="2">5</dato>
-        <dato x="3" y="3">5</dato>
-        <dato x="3" y="4">8</dato>
-        <dato x="4" y="1">8</dato>
-        <dato x="4" y="2">8</dato>
-        <dato x="4" y="3">8</dato>
-        <dato x="4" y="4">8</dato>
+        <dato x="2" y="4">1</dato>
+        <dato x="3" y="1">1</dato>
+        <dato x="3" y="2">1</dato>
+        <dato x="3" y="3">2</dato>
+        <dato x="3" y="4">82</dato>
+        <dato x="4" y="1">89</dato>
+        <dato x="4" y="2">1</dato>
+        <dato x="4" y="3">50</dato>
+        <dato x="4" y="4">100</dato>
     </matriz>
 </matrices>
