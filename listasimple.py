@@ -9,10 +9,10 @@ class Nodo:
 
 class ListaSimpleEnlazada:
     # lista = ListaCircular()
-    tamanio = 0
     def __init__(self):
         self.primero = None
         self.ultimo = None
+        self.tamanio = 0
 
     
     def isVacia(self):
@@ -21,16 +21,8 @@ class ListaSimpleEnlazada:
         else:
             return False
 
-
-    # def getSize():
-    #     aux = self.primero
-    #     contador = 0
-    #     while aux != None:
-    #         contador = contador + 1
-    #         aux = aux.siguiente
-    #     return contador
-    
-    
+    def getSize(self):
+        return self.tamanio
     
     def pop(self):
         if self.isVacia() == True:
@@ -40,35 +32,25 @@ class ListaSimpleEnlazada:
             self.primero = None
             self.ultimo = None
             print("Ultimo elemento eliminado, lista vacia :D")
+            self.tamanio = self.tamanio - 1
         else:
             validar = True
             temp = self.primero
             while(temp.siguiente != self.ultimo):
                 temp = temp.siguiente
             temp.siguiente = None
+            self.tamanio = self.tamanio - 1 
             self.ultimo = temp
 
 
     def agregarUltimo(self, dato):
         if self.isVacia() == True:
             self.primero = self.ultimo = Nodo(dato)
-            # self.tamanio = self.tamanio + 1 
+            self.tamanio = self.tamanio + 1 
         else:
             aux = self.ultimo
             self.ultimo = aux.siguiente = Nodo(dato)
-            # self.tamanio = self.tamanio + 1
-
-
-
-    
-    # def __str__(self):
-    #     aux = self.primero
-    #     lst = []
-    #     while aux != None:
-    #         cadena = aux.dato
-    #         lst.append(cadena)
-    #         aux = aux.siguiente
-    #     return lst
+            self.tamanio = self.tamanio + 1
 
 
     def recorrido(self):
@@ -105,23 +87,23 @@ class ListaSimpleEnlazada:
     
 
     def buscarPosicion(self, posicion):
-        aux = self.primero
         encontrado = False
-
-        if self.isVacia == None:
+        if self.isVacia == True:
             print("No hay elementos en la lista :D")
         else:
-            while aux != None:
-                if aux.dato.nombre == nombre:
-                    # print("ENCONTRADO: ", aux.dato.nombre)
-                    # return aux.dato.nombre
-                    encontrado = True
-                    break
-                else:
-                    aux = aux.siguiente    
-            
-            if encontrado == False:
-                print("El elemento no se encuentra en la lista.")
+            if posicion >= 0 and posicion < self.tamanio:
+                aux = self.primero
+
+                for i in range(posicion):
+                    aux = aux.siguiente
+                encontrado = True
+                return aux.dato
+            else:
+                encontrado = False
+                print("El indice no valido, esta fuera del rango.")
+        
+
+
 
 
                 
@@ -132,11 +114,13 @@ class ListaSimpleEnlazada:
 # lista.agregarUltimo(5)
 # lista.agregarUltimo(10)
 
-# lista.recorrido()
+# # lista.recorrido()
+
+# print(lista.buscarPosicion(10))
 
 
-# while lista.isVacia() == False:
-#     lista.pop()
+# # while lista.isVacia() == False:
+# #     lista.pop()
 
-# lista.recorrido()
+# # lista.recorrido()
 

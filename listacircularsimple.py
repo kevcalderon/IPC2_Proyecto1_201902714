@@ -5,17 +5,19 @@ class Nodo:
 
 
 class ListaCircular:
-    # global tamanio
+    
     def __init__(self):
         #punteros de referencia
         self.primero = None
         self.ultimo = None
     
     def isVacia(self):
-        return self.primero == None
+        if self.primero == None:
+            return True
+        else:
+            return False
 
-    # def getSize(self):
-    #     return self.tamanio
+
 
     def agregarInicio(self, dato):
         if self.isVacia():
@@ -54,7 +56,19 @@ class ListaCircular:
             aux = aux.siguiente
             if aux == self.primero: break
     
-    
+    def mostrarNombres(self):
+        aux = self.primero
+        contador = 1
+        print("*********************")
+        print(" LISTA DE MATRICES")
+        print("*********************")
+        while aux.siguiente:
+            print(str(contador) + ". " + aux.dato.nombre)
+            aux = aux.siguiente
+            contador = contador + 1
+            if aux == self.primero: break
+
+
     def buscar(self, nombre):
         aux = self.primero
         encontrado = False

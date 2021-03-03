@@ -1,5 +1,5 @@
 import sys
-from controladorMatrices import cargarArchivo
+from controladorMatrices import cargarArchivo, generarGrafica
 
 def menuPrincipal():
     while True:
@@ -30,6 +30,7 @@ def menuPrincipal():
                 datosEstudiante()        
             elif opcion == 5:
                 print("In progress generar grafica...")
+                generarGrafica()
             elif opcion == 0:
                 sys.exit()
             else:

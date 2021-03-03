@@ -4,6 +4,9 @@ from graphviz import Digraph
 from listacircularsimple import ListaCircular
 from listasimple import ListaSimpleEnlazada 
 
+# import os
+# os.environ["PATH"] += os.pathsep + 'C:/Program Files (x86)/Graphviz2.38/bin'
+
 class Matriz:
     def __init__(self, nombre, fila, columna, datos):
         self.nombre = nombre
@@ -149,6 +152,45 @@ def archivoSalida():
     pass
 
 def generarGrafica():
+    if listaGeneral.isVacia() == True:
+        print("")
+        print("No se puede graficar, no hay elementos en la lista :D")
+        print("")
+    else:
+        listaTemp = []
+        listaGeneral.mostrarNombres()
+        print("")
+        nombre = input("Escribe el nombre de la matriz que quieres graficar: ")
 
-    dot = Digraph(name='dibujo', encoding='UTF-8', format='pdf')
-    dot.attr(rankdir='LR', layout='dot', shape='circle')
+        matriz = listaGeneral.buscar(nombre)
+
+        dot = Digraph(name='dibujo', encoding='UTF-8', format='pdf')
+        dot.attr(rankdir='TB', layout='dot', shape='circle')
+        
+        nombre = matriz.nombre
+        tamanio = int(matriz.fila * matriz.columna)
+        m = "n=" + str(matriz.fila)
+        n = "m=" + str(matriz.columna)
+
+        dot.node(name=nombre, shape='circle')
+        dot.node(name=m, shape='doublecircle')
+        dot.node(name=n, shape='doublecircle')
+
+        dot.edge(nombre, m)
+        dot.edge(nombre, n)
+        
+
+        # dot.node(name=str(matriz.datos.buscarPosicion(x)), shape='circle')
+        for x in range(tamanio):
+            # El primer nodo es un nombre o id, el segundo es un valor, y el tercero es una forma
+            dot.node(str(x), label=str(matriz.datos.buscarPosicion(x)), shape="circle")
+                
+
+        # for p in range(tamanio):
+        #     dot.edge(str(matriz.datos.buscarPosicion(p)), str(matriz.datos.buscarPosicion(p+matriz.fila+1)))
+
+        dot.render(matriz.nombre, format='png', view=True)
+        print("")
+        print("Grafica generada con exito :D")
+        print("")
+    
