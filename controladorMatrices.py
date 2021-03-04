@@ -63,6 +63,8 @@ def cargarArchivo():
         # print("tamanioN: ", n)
         # print("tamanioM: ", m)
         # print("")
+
+ 
         
         #conteo de datos que hay en la matriz
         for x in dato:
@@ -145,7 +147,12 @@ def cargarArchivo():
 
 
 def procesarArchivo():
-    pass
+    if listaGeneral.isVacia() == True:
+        print("La lista esta vacia no se puede realizar la operacion :D")
+    else:
+        for x in range(listaGeneral.getSize()):
+            matriz = listaGeneral.buscarPosicion(x)
+            print(matriz)
 
 
 def archivoSalida():
@@ -181,13 +188,17 @@ def generarGrafica():
         
 
         # dot.node(name=str(matriz.datos.buscarPosicion(x)), shape='circle')
+        # creacion de nodos!
         for x in range(tamanio):
             # El primer nodo es un nombre o id, el segundo es un valor, y el tercero es una forma
             dot.node(str(x), label=str(matriz.datos.buscarPosicion(x)), shape="circle")
-                
+       
 
-        # for p in range(tamanio):
-        #     dot.edge(str(matriz.datos.buscarPosicion(p)), str(matriz.datos.buscarPosicion(p+matriz.fila+1)))
+        for i in range(int(matriz.fila)):
+            for j in range(int(matriz.columna)):
+                if j<int(matriz.columna)-1:
+                    dot.edge(str(i+(int(matriz.columna)*j)), str(i+(int(matriz.columna)*(j+1))))
+
 
         dot.render(matriz.nombre, format='png', view=True)
         print("")
