@@ -84,7 +84,6 @@ class ListaCircular:
         else:
             if posicion >= 0 and posicion < self.tamanio:
                 aux = self.primero
-
                 for i in range(posicion):
                     aux = aux.siguiente
                 encontrado = True

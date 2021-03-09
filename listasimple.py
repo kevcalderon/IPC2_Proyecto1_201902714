@@ -61,7 +61,13 @@ class ListaSimpleEnlazada:
             # print(aux.dato.datos.__str__())
             aux = aux.siguiente
     
-
+    def recorridoConMatrices(self):
+        aux = self.primero
+        
+        while aux != None:
+            print(aux.dato.__setitem__)
+            # print(aux.dato.datos.__str__())
+            aux = aux.siguiente
 
     def buscar(self, nombre):
         aux = self.primero

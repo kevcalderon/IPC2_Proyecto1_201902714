@@ -14,8 +14,19 @@ class Matriz:
         self.columna = columna
         self.datos = datos
         
+class MatrizFrecuencia:
+    def __init__(self, nombre, n, m, g, datos):
+        self.nombre = nombres
+        self.n = n
+        self.m = m
+        self.g = g
+        self.datos = datos
 
-# listaMatriz  = ListaSimpleEnlazada()
+class MatrizBinaria:
+    def _init__(self, dato):
+        self.dato = dato
+
+listaFrecuencia = ListaSimpleEnlazada()
 listaGeneral = ListaCircular()
 # listaDatosGeneral = ListaSimpleEnlazada()
 
@@ -41,8 +52,6 @@ def cargarArchivo():
     archivo = minidom.parse(nombre)
     matriz = archivo.getElementsByTagName("matriz")
     listaTemp = ListaSimpleEnlazada()
-    
-
     for i in matriz:        
         # conteoDatos = list()
    
@@ -63,9 +72,7 @@ def cargarArchivo():
         # print("tamanioN: ", n)
         # print("tamanioM: ", m)
         # print("")
-
  
-        
         #conteo de datos que hay en la matriz
         for x in dato:
             contador = contador + 1
@@ -90,21 +97,15 @@ def cargarArchivo():
                     # print("posicionY: ", posicionY)
                     # print("dato: ", valor)
                     # for x in dato[0,4]
-                    listaTemp.agregarUltimo(valor)
-                    
-                    # listaDatosGeneral.agregarUltimo(valor)
-                    
-                    
-                    # print("*********")
-   
+                    listaTemp.agregarUltimo(valor)   
             if ingresada == True:
                 matriz = Matriz(nombre, n, m, listaTemp)
                 listaGeneral.agregarFinal(matriz)
-
+                print("---------------------------------")
+                print("Nombre: " + nombre)
                 print("Matriz ingresada correctamente :D")
-                print("")
                 print("-----------------") 
-                print("*********") 
+                print("*********")
                 #agregar objeto!
 
         elif contador < tamanio:
@@ -122,38 +123,88 @@ def cargarArchivo():
             nombre = None
             tamanio = 0
 
-        # while listaTemp.isVacia() == False: 
-        #     listaTemp.pop()  
-
-
-    # listaGeneral.recorrido()
-    # acceder al nodo, con propiedades
-    prueba1 = listaGeneral.buscar("Ejemplo1")
-    # # prueba1.datos.__str__()
-
-    # # listaGeneral.getSize()
-    print(prueba1.nombre)
-    prueba1.datos.recorrido()
-    # listaGeneral.recorrido()
-    
-    # listaGeneral.buscar("Ejemplo2")
-    # listaGeneral.buscar("Ejemplo4")
-
-    # print(listaMatriz.__str__())
-   
-    
-    # listaGeneral.getSize()
-    # listaGeneral.buscar(0).nombre
-
 
 def procesarArchivo():
     if listaGeneral.isVacia() == True:
         print("La lista esta vacia no se puede realizar la operacion :D")
     else:
-        for x in range(listaGeneral.getSize()):
-            matriz = listaGeneral.buscarPosicion(x)
-            print(matriz)
+        listaDatos = ListaSimpleEnlazada()
+        listaTemp = [] #lista auxiliar
+        listaTemp2 = [] 
+        # listaTemp2 = ListaSimpleEnlazada()
+        listaBinaria = [] #lista binaria
+        temp = 1
+        noFila = 0
+        # print(listaGeneral.getSize())
 
+        # recorre cada matriz
+        for x in range(listaGeneral.getSize()):
+            # obtengo cada matriz en cada x.
+            matriz = listaGeneral.buscarPosicion(x)
+            # parametros
+            nombre = matriz.nombre + "_Salida"
+            noColumna = matriz.columna
+            # recorre cada dato de la matriz para obtener la binaria
+            for dato in range(0,(int(matriz.fila)*int(matriz.columna))):
+                valor = matriz.datos.buscarPosicion(dato)
+                
+                listaTemp2.append(valor)
+                if valor >= 1:
+                    listaTemp.append(1)
+                elif valor == 0:
+                    listaTemp.append(0)
+                if temp == matriz.columna:
+                    # CREAR LA LISTA BINARIA
+                    listaBinaria.append(listaTemp)
+                    # AGREGA LISTA DENTRO DE LISTA CIRCULAR
+                    listaDatos.agregarUltimo(listaTemp2)
+                    noFila += 1
+                    temp=0
+                    listaTemp = []
+                    listaTemp2 = []
+                temp+=1
+
+            print("")
+            print("Nombre: " + matriz.nombre)
+            print("Matriz de patrones de acceso realizada :D")
+            print(listaBinaria)
+            # listaBinaria = []
+            #vaciar lista binaria!!!!!  
+            
+            lista1temp = []
+            lista2temp = []
+            listaCircular = []
+            listaCirculartemp = []
+            listaCirculartemp2 = []
+            contador=0
+            listReducida = ListaSimpleEnlazada() 
+
+            for x in range(0,len(listaBinaria)):
+                lista1temp.append(listaBinaria[x])
+                for j in range(contador+1,len(listaBinaria)):
+                    lista2temp.append(listaBinaria[j])
+                    if lista1temp == lista2temp:
+                        listaCircular.append(x)
+                        listaCircular.append(j)
+                        listaCirculartemp2 = listaCirculartemp2 + listaDatos.buscarPosicion(j)
+                        listaCirculartemp = listaCirculartemp + listaDatos.buscarPosicion(j)
+                        print("fila " + str(x) + " suma con fila: " + str(j))
+
+                    else:
+                        print("fila no coincide:" + str(x))
+                        # listReducida.agregarUltimo(listaDatos.buscarPosicion(x))
+                    lista2temp = []
+                contador +=1
+                lista1temp = []
+
+            print("")
+            print("**************************")
+
+            listaBinaria.clear()
+            listaCircular.clear()
+            listaCirculartemp.clear()
+            listaCirculartemp2.clear()
+            
 
 def archivoSalida():
     pass
@@ -174,18 +225,17 @@ def generarGrafica():
         dot = Digraph(name='dibujo', encoding='UTF-8', format='pdf')
         dot.attr(rankdir='TB', layout='dot', shape='circle')
         
-        nombre = matriz.nombre
+        nombre = "Nombre = " + matriz.nombre
         tamanio = int(matriz.fila * matriz.columna)
-        m = "n=" + str(matriz.fila)
-        n = "m=" + str(matriz.columna)
+        n = "Fila = " + str(matriz.fila)
+        m = "Columna = " + str(matriz.columna)
 
-        dot.node(name=nombre, shape='circle')
-        dot.node(name=m, shape='doublecircle')
-        dot.node(name=n, shape='doublecircle')
+        data = nombre + "\n"
+        data = data + n + "\n"
+        data = data + m 
 
-        dot.edge(nombre, m)
-        dot.edge(nombre, n)
-        
+        dot.node(data, shape='component')
+
 
         # dot.node(name=str(matriz.datos.buscarPosicion(x)), shape='circle')
         # creacion de nodos!
@@ -196,6 +246,7 @@ def generarGrafica():
 
         for i in range(int(matriz.fila)):
             for j in range(int(matriz.columna)):
+                # si la columna es igual a tama;io de la columna crea otra union hacia el nodo siguiente.
                 if j<int(matriz.columna)-1:
                     dot.edge(str(i+(int(matriz.columna)*j)), str(i+(int(matriz.columna)*(j+1))))
 
